@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="emisionsCalculator">
+    <head>
+        <title>Calcula tus emisiones</title>
+        <!--STYLES-->
+        <link href="./css/materialize.min.css" rel="stylesheet">
+        <!--SCRIPTS-->
+        <script src="./js/angular.min.js" type="text/javascript" defer></script>
+        <script src="./js/jquery-2.1.3.min.js" type="text/javascript" defer></script>
+        <script src="./js/materialize.min.js" type="text/javascript" defer></script>
+        <script src="./js/app.js" type="text/javascript" defer></script>
+        <script src="./js/index.js" type="text/javascript" defer></script>
+    </head>
+    <body ng-controller="CaclulatorCtlr as calculator">
+        <div id="wrapper">
+            <nav>
+                <div class="nav-wrapper">
+                    <a href="./" class="brand-logo center">Calcula tus emisiones</a>
+                </div>
+            </nav>
+            <div id="content">
+                <div class="row">
+                    <div class="col l6 m8 s12 offset-m2 offset-l3">
+                        <div class="card" ng-repeat="section in calculator.sections"
+                                          ng-controller="SectionCtlr">
+                            <div class="card-content">
+                                <div class="row">
+                                    <div class="col">
+                                        <strong>{{section.title}}</strong>
+                                    </div>
+                                </div>
+                                <div class="row" ng-controller="QuestionCtlr"
+                                                 ng-repeat="question in section.questions">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,39 @@
+{
+    "unitConversion" : {
+        "length" : 1,
+        "temperature" : 1,
+        "mass" : 1
+    },
+
+    "factors" : {
+
+    },
+
+    "sections" : [
+        {
+            "title" : "SECTION_TITLE",
+            "reach" : 1,
+            "questions" : [
+                {
+                    "id" : 1,
+                    "requires" : 0,
+                    "title" : "¿CUAL ES LA PREGUNTA?",
+                    "subTitle" : "Ej. Un pequeño ejemplo no va mal",
+                    "answerType" : 1,
+                    "exec" :
+                },
+                {
+                    "id" : 2,
+                    "requires" : 1,
+                    "title" : "Esta pregunta requiere que la enterior sea contestada",
+                    "subTitle" : "Contesta la pregunta 1 antes que esta",
+                    "answerType" : 2,
+                    "exec" :
+                }
+            ]
+        },
+        {
+
+        }
+    ]
+}
