@@ -1,0 +1,31 @@
+[   "<form role=\"form\" id=\"answerType1\" novalidate>
+        <div class=\"checkbox\" ng-repeat=\"option in question.options\">
+            <label><input type=\"checkbox\" value=\"{{option.value}}\" ng-model=\"question.answer\" ng-change=\"answerChange()\">{{option.text}}</label>
+        </div>
+    </form>",
+
+    "<form role=\"form\" id=\"answerType2\" novalidate>
+            <div class=\"radio\" ng-repeat=\"option in question.options\">
+                <label><input type=\"radio\" name=\"optradio\" value=\"{{option.value}}\" ng-model=\"question.answer\" ng-change=\"answerChange()\">
+                    {{option.text}}
+                </label>
+            </div>
+        </form>",
+
+    "<form role=\"form\" id=\"answerType3\" novalidate>
+            <div class=\"form-group\" ng-repeat=\"option in question.options\">
+                <label for=\"{{'section' + section.id + 'Question' + question.id}}\">{{option.text}}</label>
+                <input type=\"{{option.textBoxType}}\" class=\"form-control\" id=\"{{'section' + section.id + 'Question' + question.id}}\"
+                       value =\"{{option.value}}\" ng-model=\"question.answer\" ng-change=\"answerChange()\">
+                </div>
+        </form>",
+
+    "<form role=\"form\" id=\"answerType4\" novalidate>
+            <div class=\"form-group\">
+                <label for=\"{{'section' + section.id + 'Question' + question.id}}\">{{option.text}}</label>
+                <select class=\"form-control\" id=\"{{'section' + section.id + 'Question' + question.id}}\" ng-model=\"question.answer\" x>
+                    <option ng-repeat=\"option in question.options\" value=\"{{option.value}}\">{{option.text}}</option>
+                </select>
+            </div>
+        </form>"
+]

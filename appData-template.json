@@ -12,7 +12,6 @@
     "sections" : [
         {
             "id" : 1,
-            "requires" : 0,
             "title" : "SECTION_TITLE",
             "reach" : 1,
             "questions" : [
@@ -33,7 +32,6 @@
                 },
                 {
                     "id" : 2,
-                    "requires" : 1,
                     "title" : "Esta pregunta requiere que la enterior sea contestada",
                     "subTitle" : "Contesta la pregunta 1 antes que esta",
                     "answerType" : 2,

@@ -1,0 +1,108 @@
+{
+    "unitConversion" : {
+        "length" : 1,
+        "temperature" : 1,
+        "mass" : 1
+    },
+
+    "factors" : {
+        "factorElectricidad" : 0.499,
+
+    },
+
+    "sections" : [
+        {
+            "id" : 1,
+            "title" : "Consumo de electricidad",
+            "reach" : 1,
+            "questions" : [
+                {
+                    "id" : 1,
+                    "requires" : 0,
+                    "title" : "Tipo de televisor",
+                    "subTitle" : "Elige un tamaño",
+                    "answerType" : 1,
+                    "options" : [
+                        {
+                            "text" : "Chica",
+                            "value" : 115,
+                        },
+                        {
+                            "text" : "Mediana",
+                            "value" : 165,
+                        },
+                        {
+                            "text" : "Grande",
+                            "value" : 205,
+                        }
+                    ],
+                    "exec" : "vars.factorTelevision = answer; return -1;"
+                },
+                {
+                    "id" : 2,
+                    "requires" : 1,
+                    "title" : "¿Cuanto tiempo al dia esta prendido el televisor?",
+                    "subTitle" : "En horas",
+                    "answerType" : 3,
+                    "options" : [
+                        {
+                            "text" : "Horas",
+                            "value" : 1,
+                            "textBoxType" : "number"
+                        }
+                    ],
+                    "exec" : "return answer * factorTelevision * factorElectricidad * 365;"
+                },
+                {
+                    "id" : 3,
+                    "requires" : 0,
+                    "title" : "Tamaño del refrigerador",
+                    "subTitle" : "Aproximadamente",
+                    "answerType" : 1,
+                    "options" : [
+                        {
+                            "text" : "Sencillo",
+                            "value" : 184,
+                        },
+                        {
+                            "text" : "Doble",
+                            "value" : 368,
+                        }
+                    ],
+                    "exec" : "return answer * factorElectricidad * 24 * 365"
+                }
+            ]
+        },
+        {
+            "id" : 2,
+            "requires" : 1,
+            "title" : "SECTION_TITLE",
+            "reach" : 1,
+            "questions" : [
+                {
+                    "id" : 1,
+                    "requires" : 0,
+                    "title" : "¿CUAL ES LA PREGUNTA?",
+                    "subTitle" : "Ej. Un pequeño ejemplo no va mal",
+                    "answerType" : 3,
+                    "options" : [
+                        {
+                            "text" : "Option 1",
+                            "value" : 100,
+                            "textBoxType" : "number"
+                        }
+                    ],
+                    "exec" : ""
+                },
+                {
+                    "id" : 2,
+                    "requires" : 1,
+                    "title" : "Esta pregunta requiere que la enterior sea contestada",
+                    "subTitle" : "Contesta la pregunta 1 antes que esta",
+                    "answerType" : 2,
+                    "exec" : ""
+                }
+            ]
+        }
+    ]
+}
