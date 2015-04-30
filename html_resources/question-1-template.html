@@ -1,0 +1,5 @@
+<form role="form" novalidate>
+    <div class="checkbox" ng-repeat="option in question.options">
+        <label><input type="checkbox" value="{{option.value}}" ng-model="question.answer" ng-change="answerChange()">{{option.text}}</input></label>
+    </div>
+</form>
