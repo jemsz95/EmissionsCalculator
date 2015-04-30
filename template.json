@@ -11,6 +11,8 @@
 
     "sections" : [
         {
+            "id" : 1,
+            "requires" : 0,
             "title" : "SECTION_TITLE",
             "reach" : 1,
             "questions" : [
@@ -20,7 +22,14 @@
                     "title" : "¿CUAL ES LA PREGUNTA?",
                     "subTitle" : "Ej. Un pequeño ejemplo no va mal",
                     "answerType" : 1,
-                    "exec" :
+                    "options" : [
+                        {
+                            "text" : "Option 1",
+                            "value" : 100,
+                            "textBoxType" : "number"
+                        }
+                    ],
+                    "exec" : ""
                 },
                 {
                     "id" : 2,
@@ -28,12 +37,47 @@
                     "title" : "Esta pregunta requiere que la enterior sea contestada",
                     "subTitle" : "Contesta la pregunta 1 antes que esta",
                     "answerType" : 2,
-                    "exec" :
+                    "options" : [
+                        {
+                            "text" : "Option 1",
+                            "value" : 100,
+                            "textBoxType" : "number"
+                        }
+                    ],
+                    "exec" : ""
                 }
             ]
         },
         {
-
+            "id" : 2,
+            "requires" : 1,
+            "title" : "SECTION_TITLE",
+            "reach" : 1,
+            "questions" : [
+                {
+                    "id" : 1,
+                    "requires" : 0,
+                    "title" : "¿CUAL ES LA PREGUNTA?",
+                    "subTitle" : "Ej. Un pequeño ejemplo no va mal",
+                    "answerType" : 3,
+                    "options" : [
+                        {
+                            "text" : "Option 1",
+                            "value" : 100,
+                            "textBoxType" : "number"
+                        }
+                    ],
+                    "exec" : ""
+                },
+                {
+                    "id" : 2,
+                    "requires" : 1,
+                    "title" : "Esta pregunta requiere que la enterior sea contestada",
+                    "subTitle" : "Contesta la pregunta 1 antes que esta",
+                    "answerType" : 2,
+                    "exec" : ""
+                }
+            ]
         }
     ]
 }
