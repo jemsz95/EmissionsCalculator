@@ -37,6 +37,10 @@
                 $scope.calculate();
             }
         });
+
+        $scope.displayResult = function(){
+            Materialize.toast('Tus emisiones en casa son: ' + $scope.calculator.result + 'TCO2Eq.', 4000);
+        }
     }]);
 
 

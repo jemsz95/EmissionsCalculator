@@ -5,9 +5,9 @@
         "mass": 1
     },
     "factors": {
-        "factorEmisionesWatt": 0.000499,
+        "factorEmisionesWatt": 0.000000499,
         "poderCalorificoGas": 0.036,
-        "factorEmisionesTJ": 56.1545
+        "factorEmisionesTJ": 5.61545
     },
     "sections": [
         {
@@ -152,7 +152,7 @@
                             "value": 0
                         }
                     ],
-                    "exec": " vars.hasAC = answer; return -1;"
+                    "exec": " vars.hasAC = 1; return -1;"
                 },
                 {
                     "id": 8,
@@ -167,7 +167,7 @@
                             "textBoxType": "number"
                         }
                     ],
-                    "exec": "return answer[0] * 365 * 2000 * vars.factorEmisionesWatt * vars.hasAC[0];"
+                    "exec": "return answer[0] * 365 * 2000 * vars.factorEmisionesWatt * vars.hasAC;"
                 },
                 {
                     "id": 9,
