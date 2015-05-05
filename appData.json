@@ -7,7 +7,7 @@
     "factors": {
         "factorEmisionesWatt": 0.000000499,
         "poderCalorificoGas": 0.036,
-        "factorEmisionesTJ": 5.61545
+        "factorEmisionesTJ": 0.561545
     },
     "sections": [
         {
