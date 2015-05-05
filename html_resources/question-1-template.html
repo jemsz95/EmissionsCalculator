@@ -1,5 +1,6 @@
 <form role="form" novalidate>
-    <div class="checkbox" ng-repeat="option in question.options">
-        <label><input type="checkbox" value="{{option.value}}" ng-model="question.answer" ng-change="answerChange()">{{option.text}}</input></label>
+    <div ng-repeat="option in question.options">
+        <input id="{{'section' + section.id + 'Question' + question.id + 'Option' + $index}}" type="checkbox" ng-true-value="{{option.value}}" ng-model="question.answer[$index]" ng-change="answerChange()"></input>
+        <label for="{{'section' + section.id + 'Question' + question.id + 'Option' + $index}}">{{option.text}}</label>
     </div>
 </form>

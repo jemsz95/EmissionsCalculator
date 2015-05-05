@@ -16,30 +16,24 @@
                 $scope.sections = $scope.data.sections;
             }).
             error(function(data, status, headers, config) {
-                console.log("AJAX Error");
+
         });
 
         $scope.calculate = function() {
-            var result = $scope.calculator.result;
-            result = 0;
+            $scope.calculator.result = 0;
 
-            angular.forEach($scope.sections, function(value, key, obj){
-                result += value.result;
+            angular.forEach($scope.sections, function(value, key, obj) {
+                //console.log(value.result);
+                $scope.calculator.result += value.result;
             });
+
+            //console.log('The grand total is: ' + $scope.calculator.result);
         }
 
         $scope.$on('sectionCalculationComplete', function(e, wasDirty) {
             if(wasDirty) {
                 $scope.isDirty = true;
 
-                if($scope.completedSectionsIds.indexOf(e.targetScope.section.id) === -1) {
-                    //First time section has been answered
-                    $scope.completedSectionsIds.push(e.targetScope.section.id);
-                }
-            }
-
-            if($scope.completedSectionsIds.length === $scope.sections.length) {
-                //Section is full
                 $scope.calculate();
             }
         });
@@ -53,11 +47,11 @@
 
         $scope.calculate = function() {
             if($scope.isDirty) {
-                var result = $scope.section.result;
-                result = 0;
+                $scope.section.result = 0;
 
-                angular.forEach($scope.section.questions, function(value, key, obj){
-                    result += value.result;
+                angular.forEach($scope.section.questions, function(value, key, obj) {
+                    $scope.section.result += value.result;
+                    console.log('Section ' + $scope.section.id + ' question ' + value.id + ': ' + value.result);
                 });
             }
 
@@ -71,15 +65,12 @@
                 $scope.isDirty = true;
 
                 if($scope.completedQuestionsIds.indexOf(e.targetScope.question.id) === -1) {
-                    //First time question has been answered
+                                        //First time question has been answered
                     $scope.completedQuestionsIds.push(e.targetScope.question.id);
                 }
             }
 
-            if($scope.completedQuestionsIds.length === $scope.section.questions.length) {
-                //Section is full
-                $scope.calculate();
-            }
+            $scope.calculate();
         });
 
         $scope.$on('mustCheckSiblingDependencies', function(e, id) {
@@ -90,7 +81,9 @@
         $scope.$on('waitForDependancy', function(e, dependantScope, dependancyId) {
             //Execute if dependancy is ready. Ignore if not.
             //(The actual calculation will be done when the mustCheckDependencies broadcast is recieved)
-            if($scope.completedQuestionsIds.indexOf(dependancyId) !== -1) {
+
+
+            if($scope.completedQuestionsIds.indexOf(dependancyId) != -1) {
                 dependantScope.calculate();
             }
         });
@@ -100,14 +93,23 @@
     app.controller('QuestionCtlr', function($scope) {
         $scope.isDirty = true;
         $scope.isEmpty = true;
-        $scope.answer = 0;
-        $scope.questionExec = new Function('vars', 'answer', '$scope', $scope.question.exec);
+        $scope.questionExec = new Function('vars', 'answer', $scope.question.exec);
+
+        if($scope.question.answerType !== 2) {
+            $scope.question.answer = [];
+
+            for(var i = 0; i < $scope.question.options.length; i++) {
+                $scope.question.answer[i] = 0;
+            }
+        }else {
+            $scope.question.answer = 0;
+        }
 
         $scope.calculate = function() {
-            if($scope.isDirty) {
-                $scope.question.result = $scope.questionExec($scope.$parent.questionModifiers, $scope.answer);
-
+                if($scope.isDirty) {
+                    $scope.question.result = $scope.questionExec($scope.$parent.questionModifiers, $scope.question.answer);
                 if($scope.question.result == -1) {
+                    $scope.question.result = 0;
                     $scope.$emit('mustCheckSiblingDependencies', $scope.question.id);
                 }
             }
@@ -123,7 +125,7 @@
 
             if($scope.question.requires != 0) {
                 //Question depends on another
-                $scope.$emit('waitForDependency', $scope, $scope.question.requires);
+                $scope.$emit('waitForDependancy', $scope, $scope.question.requires);
             } else {
                 //Question has no dependancies
                 $scope.calculate();
@@ -131,6 +133,7 @@
         }
 
         $scope.$on('mustCheckDependencies', function(e, id) {
+
             if($scope.question.requires == id) {
                 $scope.isDirty = true;
 

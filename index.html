@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html ng-app="emisionsCalculator">
     <head>
-        <title>Calcula tus emisiones</title>
+        <title>Calcula las emisiones de tu hogar</title>
         <!--STYLES-->
         <link href="/css/materialize.min.css" rel="stylesheet">
+        <link href="/css/index.css" rel="stylesheet">
         <!--SCRIPTS-->
         <script src="/js/angular.min.js" type="text/javascript" defer></script>
         <script src="/js/angular-resource.min.js" type="text/javascript" defer></script>
@@ -16,12 +17,12 @@
         <div id="wrapper">
             <nav>
                 <div class="nav-wrapper blue">
-                    <a href="/" class="brand-logo center">Calcula tus emisiones</a>
+                    <a href="/" class="brand-logo center">Calcula las emisiones de tu hogar</a>
                 </div>
             </nav>
             <div id="content">
                 <div class="row">
-                    <div class="col l6 m8 s12 offset-m2 offset-l3">
+                    <div class="col l8 m10 s12 offset-l2 offset-m1">
                         <div class="card" ng-repeat="section in sections" ng-controller="SectionCtlr">
                             <div class="card-content">
                                 <div class="row">
@@ -30,7 +31,7 @@
                                     </div>
                                 </div>
                                 <div class="row" ng-controller="QuestionCtlr" ng-repeat="question in section.questions">
-                                    <span class="card-title">{{question.title}}</span>
+                                    <span class="card-title blue-grey-text">{{question.title}}</span>
                                     <h6>{{question.subTitle}}<h6>
                                     <div class="col" ng-switch="question.answerType">
                                         <div ng-switch-when="1">

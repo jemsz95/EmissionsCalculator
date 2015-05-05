@@ -1,7 +1,7 @@
 <form role="form" novalidate>
     <div class="form-group">
         <label for="{{'section' + section.id + 'Question' + question.id}}">{{option.text}}</label>
-        <select class="form-control" id="{{'section' + section.id + 'Question' + question.id}}" ng-model="question.answer" x>
+        <select class="form-control" id="{{'section' + section.id + 'Question' + question.id + 'Option' + $index}}" ng-model="question.answer[$index]" x>
             <option ng-repeat="option in question.options" value="{{option.value}}">{{option.text}}</option>
         </select>
     </div>

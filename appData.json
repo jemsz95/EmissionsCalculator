@@ -5,57 +5,72 @@
         "mass": 1
     },
     "factors": {
-        "factorElectricidad": 0.499
+        "factorEmisionesWatt": 0.000499,
+        "poderCalorificoGas": 0.036,
+        "factorEmisionesTJ": 56.1545
     },
     "sections": [
         {
             "id": 1,
             "title": "Consumo de electricidad",
-            "reach": 1,
+            "reach": 2,
             "questions": [
                 {
                     "id": 1,
                     "requires": 0,
-                    "title": "Tipo de televisor",
-                    "subTitle": "Elige un tamaño",
-                    "answerType": 1,
+                    "title": "Tamaños de televisores",
+                    "subTitle": "Ingresa la cantidad de televisores de cada tamaño",
+                    "answerType": 3,
                     "options": [
                         {
                             "text": "Chica",
-                            "value": 115
+                            "value": 0,
+                            "textBoxType": "number"
                         },
                         {
                             "text": "Mediana",
-                            "value": 165
+                            "value": 0,
+                            "textBoxType": "number"
                         },
                         {
                             "text": "Grande",
-                            "value": 205
+                            "value": 0,
+                            "textBoxType": "number"
                         }
                     ],
-                    "exec": "vars.factorTelevision = answer; return -1;"
+                    "exec": "vars.factorTelevision = angular.copy(answer); vars.factorTelevision[0] *= 115; vars.factorTelevision[1] *= 165; vars.factorTelevision[2] *= 205; return -1;"
                 },
                 {
                     "id": 2,
                     "requires": 1,
-                    "title": "¿Cuanto tiempo al dia esta prendido el televisor?",
+                    "title": "¿Cuanto tiempo al dia estan prendido los televisor?",
                     "subTitle": "En horas",
                     "answerType": 3,
                     "options": [
                         {
-                            "text": "Horas",
-                            "value": 1,
+                            "text": "Chica",
+                            "value": 0,
+                            "textBoxType": "number"
+                        },
+                        {
+                            "text": "Mediana",
+                            "value": 0,
+                            "textBoxType": "number"
+                        },
+                        {
+                            "text": "Grande",
+                            "value": 0,
                             "textBoxType": "number"
                         }
                     ],
-                    "exec": "return answer * vars.factorTelevision * vars.factorElectricidad * 365;"
+                    "exec": "var total = 0; for(var i = 0; i < 3; i++){total = total + (answer[i] * vars.factorTelevision[i] * vars.factorEmisionesWatt * 365);} return total;"
                 },
                 {
                     "id": 3,
                     "requires": 0,
                     "title": "Tamaño del refrigerador",
                     "subTitle": "Aproximadamente",
-                    "answerType": 1,
+                    "answerType": 2,
                     "options": [
                         {
                             "text": "Sencillo",
@@ -66,7 +81,300 @@
                             "value": 368
                         }
                     ],
-                    "exec": "return answer * vars.factorElectricidad * 24 * 365;"
+                    "exec": "return answer * vars.factorEmisionesWatt * 24 * 365;"
+                },
+                {
+                    "id": 4,
+                    "requires": 0,
+                    "title": "Tienes microondas",
+                    "subTitle": "",
+                    "answerType": 2,
+                    "options": [
+                        {
+                            "text": "Si",
+                            "value": 1
+                        },
+                        {
+                            "text": "No",
+                            "value": 0
+                        }
+                    ],
+                    "exec": "vars.hasMicrowave = answer; return -1;"
+                },
+                {
+                    "id": 5,
+                    "requires": 4,
+                    "title": "Cuantos minutos utilizas el microondas al dia?",
+                    "subTitle": "",
+                    "answerType": 3,
+                    "options": [
+                        {
+                            "text": "Minutos",
+                            "value": 0,
+                            "textBoxType": "number"
+                        }
+                    ],
+                    "exec": "return answer[0] * (1000 / 60) * vars.hasMicrowave * vars.factorEmisionesWatt;"
+                },
+                {
+                    "id": 6,
+                    "requires": 0,
+                    "title": "Uso de computadora",
+                    "subTitle": "Horas de uso por tipo de computadora",
+                    "answerType": 3,
+                    "options": [
+                        {
+                            "text": "Computadora de escritorio",
+                            "value": 0,
+                            "textBoxType": "number"
+                        },
+                        {
+                            "text": "Laptop",
+                            "value": 0,
+                            "textBoxType": "number"
+                        }
+                    ],
+                    "exec": "return ((answer[0] * 150) + (answer[1] * 100)) * vars.factorEmisionesWatt;"
+                },
+                {
+                    "id": 7,
+                    "requires": 0,
+                    "title": "Tienes aire acondicionado?",
+                    "subTitle": "Elige sí o no",
+                    "answerType": 2,
+                    "options": [
+                        {
+                            "text": "Sí",
+                            "value": 1
+                        },
+                        {
+                            "text": "No",
+                            "value": 0
+                        }
+                    ],
+                    "exec": " vars.hasAC = answer; return -1;"
+                },
+                {
+                    "id": 8,
+                    "requires": 7,
+                    "title": "Cuantas horas esta encendido el aire acondicionado?",
+                    "subTitle": "Por día.",
+                    "answerType": 3,
+                    "options": [
+                        {
+                            "text": "Horas",
+                            "value": 0,
+                            "textBoxType": "number"
+                        }
+                    ],
+                    "exec": "return answer[0] * 365 * 2000 * vars.factorEmisionesWatt * vars.hasAC[0];"
+                },
+                {
+                    "id": 9,
+                    "requires": 0,
+                    "title": "Cuantos focos hay en tu casa?",
+                    "subTitle": "Solo incluye los que usualmente usan.",
+                    "answerType": 3,
+                    "options": [
+                        {
+                            "text": "Focos",
+                            "value": 0,
+                            "textBoxType": "number"
+                        }
+                    ],
+                    "exec": "vars.cantFocos = answer; return -1;"
+                },
+                {
+                    "id": 10,
+                    "requires": 9,
+                    "title": "Cuantas horas estan encendidos esos focos?",
+                    "subTitle": "Horas por día",
+                    "answerType": 3,
+                    "options": [
+                        {
+                            "text": "Horas",
+                            "value": 0,
+                            "textBoxType": "number"
+                        }
+                    ],
+                    "exec": "return vars.cantFocos[0] * answer * 40 * 365 * vars.factorEmisionesWatt;"
+                },
+                {
+                    "id": 11,
+                    "requires": 0,
+                    "title": "Tienes lavadora o secadora?",
+                    "subTitle": "Elige las que tengas",
+                    "answerType": 1,
+                    "options": [
+                        {
+                            "text": "Lavadora",
+                            "value": 1
+                        },
+                        {
+                            "text": "Secadora",
+                            "value": 1
+                        }
+                    ],
+                    "exec": "vars.hasWashingMachine = answer[0]; vars.hasClothesDryer = answer[1]; return -1;"
+                },
+                {
+                    "id": 12,
+                    "requires": 11,
+                    "title": "Cuantas cargas de ropa lavan a la semana?",
+                    "subTitle": "Por separado.",
+                    "answerType": 3,
+                    "options": [
+                        {
+                            "text": "Lavadora",
+                            "value": 0,
+                            "textBoxType": "number"
+                        },
+                        {
+                            "text": "Secadora",
+                            "value": 0,
+                            "textBoxType": "number"
+                        }
+                    ],
+                    "exec": "return ((answer[0] * 375 * vars.hasWashingMachine) + (answer[1] * 825 * vars.hasClothesDryer)) * 52 * vars.factorEmisionesWatt;"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "title": "Consumo de gas",
+            "reach": 1,
+            "questions": [
+                {
+                    "id": 1,
+                    "requires": 0,
+                    "title": "Tienes estufa?",
+                    "subTitle": "Estufa de gas(natural o lp)",
+                    "answerType": 2,
+                    "options": [
+                        {
+                            "text": "Si",
+                            "value": 1
+                        },
+                        {
+                            "text": "No",
+                            "value": 0
+                        }
+                    ],
+                    "exec": "vars.hasStove = answer; return -1;"
+                },
+                {
+                    "id": 2,
+                    "requires": 1,
+                    "title": "La estufa tiene horno?",
+                    "subTitle": "Horno de conveccion.",
+                    "answerType": 2,
+                    "options": [
+                        {
+                            "text": "Si",
+                            "value": 1
+                        },
+                        {
+                            "text": "No",
+                            "value": 0
+                        }
+                    ],
+                    "exec": "vars.hasOven = answer; return -1;"
+                },
+                {
+                    "id": 3,
+                    "requires": 1,
+                    "title": "Cuantas horas al dia se utiliza la estufa?",
+                    "subTitle": "",
+                    "answerType": 3,
+                    "options": [
+                        {
+                            "text": "Horas",
+                            "value": 0,
+                            "textBoxType": "number"
+                        }
+                    ],
+                    "exec": "return 0.0212 * vars.poderCalorificoGas * vars.factorEmisionesTJ * 365 * answer;"
+                },
+                {
+                    "id": 4,
+                    "requires": 2,
+                    "title": "Cuantas horas a la semana se utiliza el horno?",
+                    "subTitle": "",
+                    "answerType": 3,
+                    "options": [
+                        {
+                            "text": "Horas",
+                            "value": 0,
+                            "textBoxType": "number"
+                        }
+                    ],
+                    "exec": "return 0.3615 * vars.poderCalorificoGas * vars.factorEmisionesTJ * 52 * answer[0];"
+                },
+                {
+                    "id": 5,
+                    "requires": 0,
+                    "title": "Cuantas horas a la semana se utiliza el calentón?",
+                    "subTitle": "En invierno",
+                    "answerType": 3,
+                    "options": [
+                        {
+                            "text": "Horas",
+                            "value": 0,
+                            "textBoxType": "number"
+                        }
+                    ],
+                    "exec": "return 0.6763 * vars.poderCalorificoGas * vars.factorEmisionesTJ * 16 * answer[0];"
+                },
+                {
+                    "id": 6,
+                    "requires": 0,
+                    "title": "Que tipo de boiler tienen?",
+                    "subTitle": "De almacenamiento o de paso?",
+                    "answerType": 2,
+                    "options": [
+                        {
+                            "text": "Almacenamiento",
+                            "value": 1
+                        },
+                        {
+                            "text": "Paso",
+                            "value": 2
+                        }
+                    ],
+                    "exec": "vars.hasTanklessHeater = answer == 2; vars.hasTankHeater = answer == 1; return -1"
+                },
+                {
+                    "id": 7,
+                    "requires": 6,
+                    "title": "De que tamaño es el boiler?",
+                    "subTitle": "Chico o grande",
+                    "answerType": 2,
+                    "options": [
+                        {
+                            "text": "Chico",
+                            "value": 1
+                        },
+                        {
+                            "text": "Grande",
+                            "value": 2
+                        }
+                    ],
+                    "exec": "vars.boilerFactor = vars.hasTanklessHeater == 1 ? (answer == 1 ? 0.05 : 0.1) : (answer == 1 ? 0.2 : 0.32); return -1;"
+                },
+                {
+                    "id": 8,
+                    "requires": 7,
+                    "title": "Cuantas horas a la semana se utiliza el boiler?",
+                    "subTitle": "Cualquier uso de agua caliente.",
+                    "answerType": 3,
+                    "options": [
+                        {
+                            "text": "Horas",
+                            "value": 0,
+                            "textBoxType": "number"
+                        }
+                    ],
+                    "exec": "return vars.boilerFactor * vars.poderCalorificoGas * vars.factorEmisionesTJ * 52 * answer[0];"
                 }
             ]
         }

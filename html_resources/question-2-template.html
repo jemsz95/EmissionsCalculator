@@ -1,7 +1,6 @@
 <form role="form" novalidate>
-    <div class="radio" ng-repeat="option in question.options">
-        <label><input type="radio" name="optradio" value="{{option.value}}" ng-model="question.answer" ng-change="answerChange()">
-            {{option.text}}
-        </label>
+    <div ng-repeat="option in question.options">
+        <input type="radio" name="optradio" value="{{option.value}}" ng-value="{{option.value}}" ng-model="question.answer" ng-change="answerChange()" id="{{'section' + section.id + 'Question' + question.id + 'Option' + $index}}">
+        <label for="{{'section' + section.id + 'Question' + question.id + 'Option' + $index}}">{{option.text}}</label>
     </div>
 </form>

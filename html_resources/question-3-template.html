@@ -1,7 +1,6 @@
 <form role="form" novalidate>
-    <div class="form-group" ng-repeat="option in question.options">
-        <label for="{{'section' + section.id + 'Question' + question.id}}">{{option.text}}</label>
-        <input type="{{option.textBoxType}}" class="form-control" id="{{'section' + section.id + 'Question' + question.id}}"
-        value ="{{option.value}}" ng-model="question.answer" ng-change="answerChange()">
+    <div class="input-field" ng-repeat="option in question.options">
+        <input type="{{option.textBoxType}}" class="form-control" id="{{'section' + section.id + 'Question' + question.id + 'Option' + $index}}" placeholder ="{{option.value}}" ng-model="question.answer[$index]" ng-change="answerChange()">
+        <label for="{{'section' + section.id + 'Question' + question.id + 'Option' + $index}}" class="active">{{option.text}}</label>
     </div>
 </form>
